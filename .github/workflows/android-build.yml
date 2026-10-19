@@ -1,33 +1,23 @@
-name: Build Android App
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+    <application
+        android:label="Jio Mirror Cast"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar"
+        android:allowBackup="false"
+        android:supportsRtl="true">
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+        <activity
+            android:name="com.example.jiomirrorcast.MainActivity"
+            android:exported="true">
 
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v4
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "17"
+        </activity>
 
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
+    </application>
 
-      - name: Build Debug APK
-        run: gradle assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Jio-Mirror-Cast-APK
-          path: app/build/outputs/apk/debug/*.apk
+</manifest>
